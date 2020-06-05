@@ -31,7 +31,13 @@
         <td>
           <b># {{ a.rank }}</b>
         </td>
-        <td>{{ a.name }}</td>
+        <td>
+          <router-link
+            class="hover:underline text-green-600"
+            :to="{ name: 'coin-detail', params: { id: a.id } }"
+          >{{ a.name }}</router-link>
+          <small class="ml-1 text-grey-500">{{ a.symbol }}</small>
+        </td>
         <td>{{ a.priceUsd | dolar }}</td>
         <td>{{ a.marketCapUsd | dolar }}</td>
         <td
@@ -40,56 +46,66 @@
               ? 'text-red-600'
               : 'text-green-600'
           "
-        >
-          {{ a.changePercent24Hr | percent }}
+        >{{ a.changePercent24Hr | percent }}</td>
+        <td class="hidden sm:block">
+          <Button @buttonc="goToCoin(a.id)">
+            <span>Detalle</span>
+          </Button>
         </td>
-        <td class="hidden sm:block"></td>
       </tr>
     </tbody>
   </table>
 </template>
 
 <script>
-  export default {
-    name: "PxAssetsTable",
-    props: {
-      assets: {
-        type: Array,
-        default: () => []
-      }
+import Button from "@/components/PxButton";
+export default {
+  name: "PxAssetsTable",
+  components: { Button },
+  props: {
+    assets: {
+      type: Array,
+      default: () => []
     }
-  };
+  },
+  methods: {
+    goToCoin: function(id) {
+      console.log(id);
+      this.$router.push({ name: "coin-detail", params: { id: id } });
+    }
+  }
+};
 </script>
 
 <style scoped>
-  .up::before {
-    content: "👆";
-  }
+.up::before {
+  content: "👆";
+}
 
-  .down::before {
-    content: "👇";
-  }
+.down::before {
+  content: "👇";
+}
 
-  td {
-    padding: 20px 0px;
-    font-size: 0.6rem;
-    text-align: center;
+td {
+  padding: 20px 0px;
+  font-size: 0.6rem;
+  text-align: center;
+}
+
+th {
+  padding: 5px;
+  font-size: 0.6rem;
+}
+
+@media (min-width: 640px) {
+  td,
+  th {
+    padding: 20px;
+    font-size: 1rem;
   }
 
   th {
-    padding: 5px;
-    font-size: 0.6rem;
+    padding: 12px;
   }
-
-  @media (min-width: 640px) {
-    td,
-    th {
-      padding: 20px;
-      font-size: 1rem;
-    }
-
-    th {
-      padding: 12px;
-    }
-  }
+}
 </style>
