@@ -1,4 +1,5 @@
-# platzi-exchange
+# Exchange
+Proyecto de cambio de moneda hecho con VUE utilizando el vue CLI
 
 ## Project setup
 ```
