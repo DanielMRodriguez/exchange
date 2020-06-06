@@ -50,8 +50,9 @@
 
         <div class="my-10 sm:mt-0 flex flex-col justify-center text-center">
           <button
+            @click="toggleConverter"
             class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-          >Cambiar</button>
+          >{{fromUsd ?"USD > " + asset.symbol : asset.symbol + " > USD"}}</button>
 
           <div class="flex flex-row my-5">
             <label class="w-full" for="convertValue">
@@ -59,11 +60,12 @@
                 id="convertValue"
                 type="number"
                 class="text-center bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
+                v-model="converteValue"
               />
             </label>
           </div>
 
-          <span class="text-xl"></span>
+          <span class="text-xl">{{ convertResult | dolar }}</span>
         </div>
       </div>
 
@@ -84,15 +86,15 @@
           <td>{{ m.priceUsd | dolar }}</td>
           <td>{{ m.baseSymbol }} / {{ m.quoteSymbol }}</td>
           <td>
-            <px-button
-              :is-loading="m.isLoading || false"
-              v-if="!m.url"
-              @custom-click="getWebSite(m)"
-            >
+            <px-button :is-loading="m.isLoading || false" v-if="!m.url" @buttonc="getWebSite(m)">
               <slot>Obtener Link</slot>
             </px-button>
 
-            <a v-else class="hover:underline text-green-600" target="_blanck">{{ m.url }}</a>
+            <a v-else class="hover:underline text-green-600" target="_blanck">
+              {{
+              m.url
+              }}
+            </a>
           </td>
         </tr>
       </table>
@@ -114,7 +116,9 @@ export default {
       isLoading: false,
       asset: {},
       history: [],
-      markets: []
+      markets: [],
+      fromUsd: true,
+      converteValue: null
     };
   },
 
@@ -135,6 +139,20 @@ export default {
       return Math.abs(
         ...this.history.map(h => parseFloat(h.priceUsd).toFixed(2))
       );
+    },
+    convertResult() {
+      if (!this.converteValue) {
+        return 0;
+      }
+      const result = this.fromUsd
+        ? this.converteValue / this.asset.priceUsd
+        : this.converteValue * this.asset.priceUsd;
+      return result.toFixed(4);
+    }
+  },
+  watch: {
+    $route() {
+      this.getCoin();
     }
   },
 
@@ -143,6 +161,9 @@ export default {
   },
 
   methods: {
+    toggleConverter() {
+      this.fromUsd = !this.fromUsd;
+    },
     getWebSite(exchange) {
       this.$set(exchange, "isLoading", true);
 
