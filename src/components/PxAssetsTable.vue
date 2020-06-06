@@ -90,7 +90,6 @@ export default {
   },
   methods: {
     goToCoin: function(id) {
-      console.log(id);
       this.$router.push({ name: "coin-detail", params: { id: id } });
     },
     changeSortOrder: function() {
