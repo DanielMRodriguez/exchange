@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="flex justify-center">
-      <bounce-loader :loading="isLoading" :color="'#68d391'" :size="100"></bounce-loader>
+      <bounce-loader
+        :loading="isLoading"
+        :color="'#68d391'"
+        :size="100"
+      ></bounce-loader>
     </div>
     <Px-assets-table v-if="isLoading == false" :assets="assets" />
   </div>
