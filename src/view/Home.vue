@@ -8,6 +8,7 @@
       ></bounce-loader>
     </div>
     <Px-assets-table v-if="isLoading == false" :assets="assets" />
+    <h1>HELO WORLD</h1>
   </div>
 </template>
 
