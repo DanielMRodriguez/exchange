@@ -16,7 +16,7 @@
           <input
             class="bg-gray-100 focus:outline-none border-b border-gray-400 py-2 px-4 block w-full appearance-none leading-normal"
             id="filter"
-            placeholder="Buscar..."
+            placeholder="checalo..."
             type="text"
             v-model="filter"
           />
