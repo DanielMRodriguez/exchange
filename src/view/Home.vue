@@ -3,7 +3,7 @@
     <div class="flex justify-center">
       <bounce-loader
         :loading="isLoading"
-        :color="'#68d391'"
+        :color="'#4299E1'"
         :size="100"
       ></bounce-loader>
     </div>

@@ -16,7 +16,7 @@
           <input
             class="bg-gray-100 focus:outline-none border-b border-gray-400 py-2 px-4 block w-full appearance-none leading-normal"
             id="filter"
-            placeholder="checalo..."
+            placeholder="Buscar.."
             type="text"
             v-model="filter"
           />
@@ -43,7 +43,7 @@
         </td>
         <td>
           <router-link
-            class="hover:underline text-green-600"
+            class="hover:underline text-blue-600"
             :to="{ name: 'coin-detail', params: { id: a.id } }"
             >{{ a.name }}</router-link
           >

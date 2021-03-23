@@ -24,8 +24,8 @@ export default {
           url: { name: "coin-detail", params: { id: "ethereum" } }
         },
         {
-          title: "XRP",
-          url: { name: "coin-detail", params: { id: "ripple" } }
+          title: "BNB",
+          url: { name: "coin-detail", params: { id: "binance-coin" } }
         }
       ]
     };
